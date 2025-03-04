@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import io.github.zyrouge.symphony.ui.components.ActionButton
 import io.github.zyrouge.symphony.ui.components.ScaffoldDialog
 import io.github.zyrouge.symphony.ui.helpers.ViewContext
 
@@ -133,40 +134,36 @@ fun SettingsMultiTextOptionTile(
                     }
                 },
                 actions = {
-                    TextButton(
+                    ActionButton(
+                        context.symphony.t.AddItem,
                         onClick = {
                             showAddDialog = true
                         }
-                    ) {
-                        Text(context.symphony.t.AddItem)
-                    }
+                    )
                     Spacer(modifier = Modifier.weight(1f))
                     onReset?.let {
-                        TextButton(
+                        ActionButton(
+                            context.symphony.t.Reset,
                             onClick = {
                                 it()
                                 isOpen = false
                             }
-                        ) {
-                            Text(context.symphony.t.Reset)
-                        }
+                        )
                     }
-                    TextButton(
+                    ActionButton(
+                        context.symphony.t.Cancel,
                         onClick = {
                             isOpen = false
                         }
-                    ) {
-                        Text(context.symphony.t.Cancel)
-                    }
-                    TextButton(
+                    )
+                    ActionButton(
+                        context.symphony.t.Done,
                         enabled = modified,
                         onClick = {
                             onChange(nValues)
                             isOpen = false
                         }
-                    ) {
-                        Text(context.symphony.t.Done)
-                    }
+                    )
                 },
             )
 

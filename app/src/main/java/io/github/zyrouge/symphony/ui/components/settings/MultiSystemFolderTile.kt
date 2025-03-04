@@ -18,11 +18,17 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import io.github.zyrouge.symphony.ui.components.ActionButton
 import io.github.zyrouge.symphony.ui.components.ScaffoldDialog
 import io.github.zyrouge.symphony.ui.components.ScaffoldDialogDefaults
 import io.github.zyrouge.symphony.ui.components.drawScrollBar
@@ -109,29 +115,26 @@ fun SettingsMultiSystemFolderTile(
                     }
                 },
                 actions = {
-                    TextButton(
+                    ActionButton(
+                        context.symphony.t.AddFolder,
                         onClick = {
                             pickFolderLauncher.launch(null)
                         }
-                    ) {
-                        Text(context.symphony.t.AddFolder)
-                    }
+                    )
                     Spacer(modifier = Modifier.weight(1f))
-                    TextButton(
+                    ActionButton(
+                        context.symphony.t.Cancel,
                         onClick = {
                             showDialog = false
                         }
-                    ) {
-                        Text(context.symphony.t.Cancel)
-                    }
-                    TextButton(
+                    )
+                    ActionButton(
+                        context.symphony.t.Done,
                         onClick = {
                             onChange(values.toSet())
                             showDialog = false
                         }
-                    ) {
-                        Text(context.symphony.t.Done)
-                    }
+                    )
                 }
             )
         }

@@ -91,6 +91,7 @@ fun ScaffoldDialog(
                     }
                     Row(
                         horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(12.dp, 0.dp),
