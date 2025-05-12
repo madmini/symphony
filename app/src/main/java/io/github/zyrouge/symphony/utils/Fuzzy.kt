@@ -35,7 +35,7 @@ class FuzzySearcher<T>(val options: List<FuzzySearchOption<T>>) {
         maxLength: Int = -1,
     ): List<FuzzyResultEntity<T>> {
         val results = entities
-            .map { compare(terms, it) }
+            .chunkedParallelMap(chunkSize = 100) { compare(terms, it) }
             .sortedByDescending { it.score }
         return when {
             maxLength > -1 -> results.subListNonStrict(maxLength)
