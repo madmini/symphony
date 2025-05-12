@@ -23,6 +23,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        applicationIdSuffix = ".fork"
+        resValue("string", "app_name", "Symphony (fork)")
     }
 
     signingConfigs {
