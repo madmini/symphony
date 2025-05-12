@@ -1,6 +1,12 @@
 package io.github.zyrouge.symphony.utils
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlin.coroutines.CoroutineContext
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.random.Random
@@ -26,3 +32,17 @@ fun <T> List<T>.mutate(fn: MutableList<T>.() -> Unit): List<T> {
 }
 
 fun <T> concurrentListOf(): MutableList<T> = CopyOnWriteArrayList(mutableListOf<T>())
+
+fun <T, R> Iterable<T>.chunkedParallelMap(
+    chunkSize: Int = 100,
+    context: CoroutineContext = Dispatchers.Default,
+    transform: suspend (T) -> R,
+): List<R> = runBlocking {
+    coroutineScope {
+        chunked(chunkSize).map { chunk ->
+            async(context) {
+                chunk.map { transform(it) }
+            }
+        }.awaitAll().flatten()
+    }
+}
