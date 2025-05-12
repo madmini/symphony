@@ -56,7 +56,7 @@ class FuzzySearcher<T>(val options: List<FuzzySearchOption<T>>) {
 }
 
 object Fuzzy {
-    fun compare(input: String, against: String) = FuzzySearch.tokenSetPartialRatio(
+    fun compare(input: String, against: String) = FuzzySearch.weightedRatio(
         normalizeTerms(input),
         normalizeTerms(against),
     )
